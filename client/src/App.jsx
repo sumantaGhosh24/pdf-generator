@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import {useState} from "react";
 import axios from "axios";
 import {saveAs} from "file-saver";
 
@@ -19,9 +19,11 @@ const App = () => {
 
   const handleSubmit = () => {
     axios
-      .post("/create-pdf", data)
+      .post("http://localhost:5000/create-pdf", data)
       .then(() =>
-        axios.get(`fetch-pdf/${data.receiptId}`, {responseType: "blob"})
+        axios.get(`http://localhost:5000/fetch-pdf/${data.receiptId}`, {
+          responseType: "blob",
+        })
       )
       .then((res) => {
         const pdfBlob = new Blob([res.data], {type: "application/pdf"});
